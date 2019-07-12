@@ -1,0 +1,76 @@
+This application is purely a kitchen-\/sink demo of the Ionic Framework and Angular.
+
+{\bfseries{There is not an actual Ionic Conference at this time.}} This project is just to show off Ionic components in a real-\/world application. Please go through the steps in \href{https://github.com/ionic-team/ionic-conference-app/blob/master}{\texttt{ https\+://github.\+com/ionic-\/team/ionic-\/conference-\/app/blob/master}}/.github/\+C\+O\+N\+T\+R\+I\+B\+U\+T\+I\+N\+G.\+md \char`\"{}\+C\+O\+N\+T\+R\+I\+B\+U\+T\+I\+N\+G\char`\"{} before submitting an issue.
+
+\subsection*{Table of Contents}
+
+
+\begin{DoxyItemize}
+\item \href{\#getting-started}{\texttt{ Getting Started}}
+\item \href{\#contributing}{\texttt{ Contributing}}
+\item \href{\#app-preview}{\texttt{ App Preview}}
+\item \href{\#deploying}{\texttt{ Deploying}}
+\begin{DoxyItemize}
+\item \href{\#progressive-web-app}{\texttt{ Progressive Web App}}
+\item \href{\#android}{\texttt{ Android}}
+\item \href{\#ios}{\texttt{ i\+OS}}
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\subsection*{Getting Started}
+
+
+\begin{DoxyItemize}
+\item \href{https://nodejs.org/}{\texttt{ Download the installer}} for Node.\+js 6 or greater.
+\item Install the ionic C\+LI globally\+: {\ttfamily npm install -\/g ionic}
+\item Clone this repository\+: {\ttfamily git clone \href{https://github.com/ionic-team/ionic-conference-app.git}{\texttt{ https\+://github.\+com/ionic-\/team/ionic-\/conference-\/app.\+git}}}.
+\item Run {\ttfamily npm install} from the project root.
+\item Run {\ttfamily ionic serve} in a terminal from the project root.
+\item Profit. \+:tada\+:
+\end{DoxyItemize}
+
+{\itshape Note\+: See \href{https://docs.npmjs.com/getting-started/fixing-npm-permissions}{\texttt{ How to Prevent Permissions Errors}} if you are running into issues when trying to install packages globally.}
+
+\subsection*{Contributing}
+
+See \href{https://github.com/ionic-team/ionic-conference-app/blob/master}{\texttt{ https\+://github.\+com/ionic-\/team/ionic-\/conference-\/app/blob/master}}/.github/\+C\+O\+N\+T\+R\+I\+B\+U\+T\+I\+N\+G.\+md \char`\"{}\+C\+O\+N\+T\+R\+I\+B\+U\+T\+I\+N\+G.\+md\char`\"{} \+:tada\+:\+:+1\+:
+
+\subsection*{App Preview}
+
+All app preview screenshots were taken by running {\ttfamily ionic serve -\/-\/lab} on a retina display.
+
+
+\begin{DoxyItemize}
+\item \href{https://github.com/ionic-team/ionic-conference-app/blob/master/src/app/pages/schedule/schedule.html}{\texttt{ Schedule Page}}
+
+
+\item \href{https://github.com/ionic-team/ionic-conference-app/blob/master/src/app/pages/about/about.html}{\texttt{ About Page}}
+
+
+\item To see more images of the app, check out the \href{https://github.com/ionic-team/ionic-conference-app/tree/master/resources/screenshots}{\texttt{ screenshots directory}}!
+\end{DoxyItemize}
+
+\subsection*{Deploying}
+
+\subsubsection*{Progressive Web App}
+
+
+\begin{DoxyEnumerate}
+\item Un-\/comment \href{https://github.com/ionic-team/ionic2-app-base/blob/master/src/index.html\#L21}{\texttt{ these lines}}
+\item Run {\ttfamily npm run ionic\+:build -\/-\/prod}
+\item Push the {\ttfamily www} folder to your hosting service
+\end{DoxyEnumerate}
+
+\subsubsection*{Android}
+
+
+\begin{DoxyEnumerate}
+\item Run {\ttfamily ionic cordova run android -\/-\/prod}
+\end{DoxyEnumerate}
+
+\subsubsection*{i\+OS}
+
+
+\begin{DoxyEnumerate}
+\item Run {\ttfamily ionic cordova run ios -\/-\/prod} 
+\end{DoxyEnumerate}
