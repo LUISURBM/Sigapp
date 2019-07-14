@@ -1,51 +1,48 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { UserData } from '../../providers/user-data';
 
 import { UserOptions } from '../../interfaces/user-options';
-import {Facebook, Google, LinkedIn} from 'ng2-cordova-oauth/core';
+
 
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
-import { FacebookLoginResponse } from '@ionic-native/facebook/ngx';
+import { FacebookLoginResponse, Facebook } from '@ionic-native/facebook/ngx';
 import { LoadingController, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { OauthCordova } from 'ng2-cordova-oauth/platform/cordova';
+import { log } from '../../decorators/log';
+import { OAuthService } from 'app/oauth/oauth.service';
 
-
+declare var FB: any;
 
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
   styleUrls: ['./login.scss'],
 })
-export class LoginPage {
+
+export class LoginPage implements OnInit{
   login: UserOptions = { username: '', password: '' };
   submitted = false;
   loading: HTMLIonLoadingElement;
-  oauth = new OauthCordova();
-  facebookProvider = new Facebook({
-    clientId: "334812790746569",
-    appScope: ["email"]
-  });
-
+  
+  
   constructor(
     public userData: UserData,
     public router: Router,
-    // private fb: Facebook,
+    private oAuth: OAuthService,
     public loadingController: LoadingController,
     private platform: Platform,
     private nativeStorage: NativeStorage,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
-  ) {
-    console.log('LoginPage');
+    private statusBar: StatusBar, ) {
+      
     this.platform.ready().then(() => {
       // Here we will check if the user is already logged in
       // because we don't want to ask users to log in each time t hey open the app
-      this.nativeStorage.getItem('facebook_user')
+      this.nativeStorage.getItem('user')
         .then(_data => {
           // user is previously logged and we have his data
           // we will let him access the app
@@ -61,6 +58,27 @@ export class LoginPage {
     });
   }
 
+  ngOnInit(){
+    (window as any).fbAsyncInit = function() {
+      FB.init({
+        appId      : '334812790746569',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v3.1'
+      });
+      FB.AppEvents.logPageView();
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+
+  }
+
   onLogin(form: NgForm) {
     this.submitted = true;
 
@@ -74,12 +92,12 @@ export class LoginPage {
     this.router.navigateByUrl('/signup');
   }
 
+  @log
   async doLogin(source: string) {
-    this.loading = await this.loadingController.create({
-      message: 'Please wait...'
-    });
-    if(source === 'facebook')
+    
+    if(source === 'facebook') {
     this.facebook();
+    }
     // this.presentLoading();
     // this.oauthService.login(source).then(
     //   () => this.router.navigate(["/pages/oauth/profile/oauth-profile"]),
@@ -100,13 +118,34 @@ export class LoginPage {
   }
 
   private facebook() {
-    this.platform.ready().then(() => {
-        this.oauth.logInVia(this.facebookProvider).then(success => {
-            console.log("RESULT: " + JSON.stringify(success));
-        }, error => {
-            console.log("ERROR: ", error);
+    // this.fbProvider.login();
+    console.log("submit login to facebook");
+    // FB.login();
+    FB.login((response)=>
+        {
+          console.log('submitLogin',response);
+          if (response.authResponse)
+          {
+            this.nativeStorage.setItem('user',response)
+        .then(_data => {
+          // user is previously logged and we have his data
+          // we will let him access the app
+          this.router.navigate(["/user/profile"]);
+          this.splashScreen.hide();
+        }, _err => {
+          //we don't have the user data so we will ask him to log in
+          this.router.navigate(["/login"]);
+          this.splashScreen.hide();
         });
-    });
+            //login success
+            //login success code here
+            //redirect to home page
+           }
+           else
+           {
+           console.log('User login failed');
+         }
+      });
 }
 
   // async doFbLogin() {

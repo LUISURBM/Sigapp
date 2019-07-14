@@ -13,8 +13,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { Facebook } from '@ionic-native/facebook/ngx';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
-import {OauthCordova} from 'ng2-cordova-oauth/platform/cordova';
-import {Oauth} from 'ng2-cordova-oauth/oauth';
+import { OAuthService } from './oauth/oauth.service';
 
 @NgModule({
   imports: [
@@ -29,7 +28,7 @@ import {Oauth} from 'ng2-cordova-oauth/oauth';
   ],
   declarations: [AppComponent],
   providers: [InAppBrowser, SplashScreen, StatusBar, Facebook, NativeStorage,
-    { provide: Oauth, useClass: OauthCordova }
+    OAuthService
  ],
   bootstrap: [AppComponent]
 })

@@ -3,5 +3,6 @@
   "type": "angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "sigapp": "334812790746569"
 }
