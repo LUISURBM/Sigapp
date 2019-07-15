@@ -13,7 +13,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { Facebook } from '@ionic-native/facebook/ngx';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
-import { OAuthService } from './oauth/oauth.service';
+import { Config } from './config';
+import { OAuthModule } from './pages/login/oauth.module';
+import { OAuthService } from './pages/login/oauth.service';
 
 @NgModule({
   imports: [
@@ -24,12 +26,12 @@ import { OAuthService } from './oauth/oauth.service';
     IonicStorageModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production
-    })
+    }),
+    OAuthModule
   ],
   declarations: [AppComponent],
-  providers: [InAppBrowser, SplashScreen, StatusBar, Facebook, NativeStorage,
-    OAuthService
- ],
+  providers: [OAuthService, InAppBrowser, SplashScreen, StatusBar, Facebook, NativeStorage,
+    Config],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

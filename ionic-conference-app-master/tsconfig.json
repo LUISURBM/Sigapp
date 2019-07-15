@@ -20,7 +20,8 @@
       "@models/*": ["src/app/models/*"],
       "@pages/*": ["src/app/pages/*"],
       "@providers/*": ["src/app/providers/*"],
-      "@interfaces/*": ["src/app/interfaces/*"]
+      "@interfaces/*": ["src/app/interfaces/*"],
+      "@decorators/*": ["src/app/decorators/*"]
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -8,12 +8,11 @@ import { UserOptions } from '../../interfaces/user-options';
 
 
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
-import { FacebookLoginResponse, Facebook } from '@ionic-native/facebook/ngx';
 import { LoadingController, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { log } from '../../decorators/log';
-import { OAuthService } from 'app/oauth/oauth.service';
+import { OAuthService } from 'app/pages/login/oauth.service';
 
 declare var FB: any;
 
@@ -23,12 +22,11 @@ declare var FB: any;
   styleUrls: ['./login.scss'],
 })
 
-export class LoginPage implements OnInit{
+export class LoginPage {
   login: UserOptions = { username: '', password: '' };
   submitted = false;
   loading: HTMLIonLoadingElement;
-  
-  
+
   constructor(
     public userData: UserData,
     public router: Router,
@@ -37,8 +35,8 @@ export class LoginPage implements OnInit{
     private platform: Platform,
     private nativeStorage: NativeStorage,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar, ) {
-      
+    private statusBar: StatusBar) {
+
     this.platform.ready().then(() => {
       // Here we will check if the user is already logged in
       // because we don't want to ask users to log in each time t hey open the app
@@ -58,27 +56,6 @@ export class LoginPage implements OnInit{
     });
   }
 
-  ngOnInit(){
-    (window as any).fbAsyncInit = function() {
-      FB.init({
-        appId      : '334812790746569',
-        cookie     : true,
-        xfbml      : true,
-        version    : 'v3.1'
-      });
-      FB.AppEvents.logPageView();
-    };
-
-    (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "https://connect.facebook.net/en_US/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
-
-  }
-
   onLogin(form: NgForm) {
     this.submitted = true;
 
@@ -92,41 +69,17 @@ export class LoginPage implements OnInit{
     this.router.navigateByUrl('/signup');
   }
 
-  @log
   async doLogin(source: string) {
-    
-    if(source === 'facebook') {
-    this.facebook();
-    }
-    // this.presentLoading();
-    // this.oauthService.login(source).then(
-    //   () => this.router.navigate(["/pages/oauth/profile/oauth-profile"]),
-    //   error => alert(error)
-    // );
-    // if (this.platform.is('desktop')) {
-
-      // this.fb.login(['public_profile', 'user_friends', 'email'])
-      //   .then((res: FacebookLoginResponse) => console.log('Logged into Facebook!', res))
-      //   .catch(e => console.log('Error logging into Facebook', e));
-
-
-    // } else {
-    //   this.doLogin('');
-    // }
-
-    // this.fb.logEvent(this.fb.EVENTS.EVENT_NAME_ADDED_TO_CART);
+    this.oAuth.login(source);
   }
 
   private facebook() {
     // this.fbProvider.login();
-    console.log("submit login to facebook");
     // FB.login();
-    FB.login((response)=>
-        {
-          console.log('submitLogin',response);
-          if (response.authResponse)
-          {
-            this.nativeStorage.setItem('user',response)
+    FB.login((response) => {
+          console.log('submitLogin', response);
+          if (response.authResponse) {
+            this.nativeStorage.setItem('user', response)
         .then(_data => {
           // user is previously logged and we have his data
           // we will let him access the app
@@ -147,38 +100,6 @@ export class LoginPage implements OnInit{
          }
       });
 }
-
-  // async doFbLogin() {
-  //   let permissions = ["public_profile", "email"];
-
-  //   this.fb.login(permissions)
-  //     .then(response => {
-  //       let userId = response.authResponse.userID;
-
-  //       //Getting name and gender properties
-  //       this.fb.api("/me?fields=name,email", permissions)
-  //         .then(user => {
-  //           user.picture = "https://graph.facebook.com/" + userId + "/picture?type=large";
-  //           //now we have the users info, let's save it in the NativeStorage
-  //           this.nativeStorage.setItem('facebook_user',
-  //             {
-  //               name: user.name,
-  //               email: user.email,
-  //               picture: user.picture
-  //             })
-  //             .then(() => {
-  //               this.router.navigate(["/tutorial"]);
-  //               this.loading.dismiss();
-  //             }, error => {
-  //               console.log(error);
-  //               this.loading.dismiss();
-  //             })
-  //         })
-  //     }, error => {
-  //       console.log(error);
-  //       this.loading.dismiss();
-  //     });
-  // }
 
   async presentLoading() {
     return await this.loading.present();

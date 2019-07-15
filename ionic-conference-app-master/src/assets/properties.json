@@ -1,0 +1,7 @@
+[{
+    "facebook": 1,
+    "NAME": "https://www.facebook.com/v3.3/dialog/oauth"
+},{
+    "google": 2,
+    "oAuthUrl": "https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive.file&state=security_token%3D138r5719ru3e1%26url%3Dhttps://oa2cb.example.com/myHome&redirect_uri=https%3A%2F%2Fmyapp.example.com%2Fcallback&response_type=code&client_id=your_client_id&prompt=consent&include_granted_scopes=true",
+}]

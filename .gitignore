@@ -1,3 +1,4 @@
 *\.history\*
 *\.firebaserc
 *\.history
+*\node_modules

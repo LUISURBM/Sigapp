@@ -14,5 +14,4 @@ export const environment = {
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
 
-export const ID_API_FB = '334812790746569';
 export const CALLBACK_API = 'https://localhost:8100/login';
