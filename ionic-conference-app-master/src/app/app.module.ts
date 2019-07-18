@@ -16,6 +16,7 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { Config } from './config';
 import { OAuthModule } from './pages/login/oauth.module';
 import { OAuthService } from './pages/login/oauth.service';
+import { LoginPage } from './pages/login/login';
 
 @NgModule({
   imports: [
@@ -29,7 +30,7 @@ import { OAuthService } from './pages/login/oauth.service';
     }),
     OAuthModule
   ],
-  declarations: [AppComponent],
+  declarations: [AppComponent, LoginPage],
   providers: [OAuthService, InAppBrowser, SplashScreen, StatusBar, Facebook, NativeStorage,
     Config],
   bootstrap: [AppComponent]

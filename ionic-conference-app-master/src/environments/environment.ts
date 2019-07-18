@@ -14,4 +14,4 @@ export const environment = {
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
 
-export const CALLBACK_API = 'https://localhost:8100/login';
+export const CALLBACK_API = 'https://8100-e1eacc3c-c7e0-4dc3-87ef-b973935f6032.ws-us0.gitpod.io/login';

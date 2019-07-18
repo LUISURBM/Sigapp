@@ -6,6 +6,7 @@ import { Config } from '../../../config';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { log } from 'app/decorators/log';
+import { Router } from '@angular/router';
 
 interface ILoginResponse {
     access_token: string;
@@ -18,7 +19,7 @@ export class GoogleOauthProvider implements IOathProvider {
     private http: HttpClient;
     private config: Config;
 
-    constructor(http: HttpClient, config: Config) {
+    constructor(http: HttpClient, config: Config, private router: Router) {
         this.http = http;
         this.config = config;
         gapi.client.init({
@@ -31,12 +32,13 @@ export class GoogleOauthProvider implements IOathProvider {
         });
     }
 
-
+@log()
     login(): Promise<any> {
-        return this.http.get(this.getUrlLogin(), this.getHttpOptions())
-            .toPromise().then((data) => {
-                console.log(data);
-            });
+      return this.router.navigate(['/googleLogin', {externalUrl : this.getUrlLogin()}]);
+        // return this.http.get(this.getUrlLogin(), this.getHttpOptions())
+        //     .toPromise().then((data) => {
+        //         console.log(data);
+        //     });
     }
 
     getUrlLogin(): string {
@@ -52,7 +54,8 @@ export class GoogleOauthProvider implements IOathProvider {
     getHttpOptions() {
         const httpOptions = {
             headers: new HttpHeaders({
-                'Access-Control-Allow-Origin': '*'
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': 'true'
             })
         };
         return httpOptions;
