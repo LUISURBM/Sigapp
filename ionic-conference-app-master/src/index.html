@@ -2,140 +2,141 @@
 <html lang="en" dir="ltr">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Ionic Conference App</title>
+    <meta charset="UTF-8">
+    <title>Ionic Conference App</title>
 
-  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="format-detection" content="telephone=no">
-  <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
 
-  <meta name="theme-color" content="#387ef5">
+    <meta name="theme-color" content="#387ef5">
 
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="google-site-verification" content="lYAHAexdKjR-NrpDLMuZXKKbZJota0jkf3QYoAgvQIM" />
 
-  <base href="/">
+    <base href="/">
 
-  <link rel="icon" type="image/x-icon" href="assets/img/appicon.png">
+    <link rel="icon" type="image/x-icon" href="assets/img/appicon.png">
 
-  <link rel="apple-touch-icon" href="assets/img/appicon.png">
+    <link rel="apple-touch-icon" href="assets/img/appicon.png">
 
-  <link rel="manifest" href="manifest.json">
-  <script async defer src="https://connect.facebook.net/es_LA/sdk.js"></script> 
-  <script src="https://apis.google.com/js/api.js"></script>
+    <link rel="manifest" href="manifest.json">
+    <script src="https://apis.google.com/js/api.js"></script>
 </head>
 
 <body>
-  
-<script>
-    // This is called with the results from from FB.getLoginStatus().
-    console.log('IONIC APP');
-    function statusChangeCallback(response) {
-    console.log('statusChangeCallback');
-    console.log(response);
-    // The response object is returned with a status field that lets the
-    // app know the current login status of the person.
-    // Full docs on the response object can be found in the documentation
-    // for FB.getLoginStatus().
-    if (response.status === 'connected') {
-      // Logged into your app and Facebook.
-      testAPI();
-    }
-  }
+    <!-- <script async defer src="https://connect.facebook.net/es_LA/sdk.js"></script> -->
+    <script>
+        // This is called with the results from from FB.getLoginStatus().
+        console.log('IONIC APP');
 
-  // This function is called when someone finishes with the Login
-  // Button.  See the onlogin handler attached to it in the sample
-  // code below.
-  function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-    });
-  }
+        function statusChangeCallback(response) {
+            console.log('statusChangeCallback');
+            console.log(response);
+            // The response object is returned with a status field that lets the
+            // app know the current login status of the person.
+            // Full docs on the response object can be found in the documentation
+            // for FB.getLoginStatus().
+            if (response.status === 'connected') {
+                // Logged into your app and Facebook.
+                testAPI();
+            }
+        }
 
-  
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '334812790746569',
-      cookie     : true,  // enable cookies to allow the server to access 
-                          // the session
-      xfbml      : true,  // parse social plugins on this page
-      version    : 'v2.7' // The Graph API version to use for the call
-    });    // Now that we've initialized the JavaScript SDK, we call 
-    // FB.getLoginStatus().  This function gets the state of the
-    // person visiting this page and can return one of three states to
-    // the callback you provide.  They can be:
-    //
-    // 1. Logged into your app ('connected')
-    // 2. Logged into Facebook, but not your app ('not_authorized')
-    // 3. Not logged into Facebook and can't tell if they are logged into
-    //    your app or not.
-    //
-    // These three cases are handled in the callback function.
-
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-
-    });
-    FB.AppEvents.logPageView();
-  
-  };
+        // This function is called when someone finishes with the Login
+        // Button.  See the onlogin handler attached to it in the sample
+        // code below.
+        function checkLoginState() {
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
+        }
 
 
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: '334812790746569',
+                cookie: true, // enable cookies to allow the server to access 
+                // the session
+                xfbml: true, // parse social plugins on this page
+                version: 'v2.7' // The Graph API version to use for the call
+            }); // Now that we've initialized the JavaScript SDK, we call 
+            // FB.getLoginStatus().  This function gets the state of the
+            // person visiting this page and can return one of three states to
+            // the callback you provide.  They can be:
+            //
+            // 1. Logged into your app ('connected')
+            // 2. Logged into Facebook, but not your app ('not_authorized')
+            // 3. Not logged into Facebook and can't tell if they are logged into
+            //    your app or not.
+            //
+            // These three cases are handled in the callback function.
 
-  // Load the SDK asynchronously
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "https://connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
+            FB.AppEvents.logPageView();
 
-  // Here we run a very simple test of the Graph API after login is
-  // successful.  See statusChangeCallback() for when this call is made.
-  function testAPI() {
-    console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function(response) {
-      console.log('Successful login for: ' + response.name);
-      document.getElementById('status').innerHTML =
-        'Thanks for logging in, ' + response.name + '!';
-    });
-  }
-  </script>
+        };
 
 
-<script>
-  function start() {
-    // 2. Initialize the JavaScript client library.
-    gapi.client.init({
-      'apiKey': 'AIzaSyDXV593jPYDk3ixDjVRdFlBJcnorheuT0I',
-      // Your API key will be automatically added to the Discovery Document URLs.
-      'discoveryDocs': ['https://people.googleapis.com/$discovery/rest'],
-      // clientId and scope are optional if auth is not required.
-      'clientId': '963354947120-b6ol79tmrd7h5diqe7qduat17hgd6t41.apps.googleusercontent.com',
-      'scope': 'profile',
-    }).then(function() {  
-      // 3. Initialize and make the API request.
-      return gapi.client.people.people.get({
-        'resourceName': 'people/me',
-        'requestMask.includeField': 'person.names'
-      });
-    }).then(function(response) {
-      console.log(response.result);
-    }, function(reason) {
-      console.log('Error: ' + reason.result.error.message);
-    });
-  };
-  // 1. Load the JavaScript client library.
-  gapi.load('client', start);
-  </script>
-  <app-root></app-root>
 
-  <!-- Replace the API key with your own, see:
+        // Load the SDK asynchronously
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        // Here we run a very simple test of the Graph API after login is
+        // successful.  See statusChangeCallback() for when this call is made.
+        function testAPI() {
+            console.log('Welcome!  Fetching your information.... ');
+            FB.api('/me', function(response) {
+                console.log('Successful login for: ' + response.name);
+            });
+        }
+    </script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_PI/sdk.js#xfbml=1&version=v4.0&appId=334812790746569&autoLogAppEvents=1"></script>
+
+
+
+    <script>
+        function start() {
+            // 2. Initialize the JavaScript client library.
+            gapi.client.init({
+                'apiKey': 'AIzaSyDXV593jPYDk3ixDjVRdFlBJcnorheuT0I',
+                // Your API key will be automatically added to the Discovery Document URLs.
+                'discoveryDocs': ['https://people.googleapis.com/$discovery/rest'],
+                // clientId and scope are optional if auth is not required.
+                'clientId': '963354947120-b6ol79tmrd7h5diqe7qduat17hgd6t41.apps.googleusercontent.com',
+                'scope': 'profile',
+            }).then(function() {
+                // 3. Initialize and make the API request.
+                return gapi.client.people.people.get({
+                    'resourceName': 'people/me',
+                    'requestMask.includeField': 'person.names'
+                });
+            }).then(function(response) {
+                console.log(response.result);
+            }, function(reason) {
+                console.log('Error: ' + reason.result.error.message);
+            });
+        };
+        // 1. Load the JavaScript client library.
+        gapi.load('client', start);
+    </script>
+    <app-root></app-root>
+
+    <!-- Replace the API key with your own, see:
     https://developers.google.com/maps/documentation/javascript/get-api-key -->
-  <!-- <script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8pf6ZdFQj5qw7rc_HSGrhUwQKfIe9ICw"></script> -->
+    <!-- <script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8pf6ZdFQj5qw7rc_HSGrhUwQKfIe9ICw"></script> -->
 
-  <noscript>Please enable JavaScript to continue using this application.</noscript>
+    <noscript>Please enable JavaScript to continue using this application.</noscript>
 </body>
 
 </html>

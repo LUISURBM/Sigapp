@@ -15,6 +15,11 @@ export class OAuthService {
         this.injector = injector;
     }
 
+    
+    urlLogin(source: string): string {
+        return this.getOAuthService(source).getUrlLogin();
+    }
+
     async login(source: string): Promise<OAuthToken> {
         return this.getOAuthService(source).login().then(accessToken => {
             if (!accessToken) {

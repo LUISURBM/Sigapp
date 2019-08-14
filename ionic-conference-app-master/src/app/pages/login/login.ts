@@ -69,37 +69,13 @@ export class LoginPage {
     this.router.navigateByUrl('/signup');
   }
 
+  urlLogin(source: string): string {
+    return this.oAuth.urlLogin(source);
+  }
+
   async doLogin(source: string) {
     this.oAuth.login(source);
   }
-
-  private facebook() {
-    // this.fbProvider.login();
-    // FB.login();
-    FB.login((response) => {
-          console.log('submitLogin', response);
-          if (response.authResponse) {
-            this.nativeStorage.setItem('user', response)
-        .then(_data => {
-          // user is previously logged and we have his data
-          // we will let him access the app
-          this.router.navigate(["/user/profile"]);
-          this.splashScreen.hide();
-        }, _err => {
-          //we don't have the user data so we will ask him to log in
-          this.router.navigate(["/login"]);
-          this.splashScreen.hide();
-        });
-            //login success
-            //login success code here
-            //redirect to home page
-           }
-           else
-           {
-           console.log('User login failed');
-         }
-      });
-}
 
   async presentLoading() {
     return await this.loading.present();

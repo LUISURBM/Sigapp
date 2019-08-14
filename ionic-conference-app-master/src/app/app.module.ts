@@ -16,6 +16,9 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { Config } from './config';
 import { OAuthModule } from './pages/login/oauth.module';
 import { OAuthService } from './pages/login/oauth.service';
+import { HTTP } from '@ionic-native/http/ngx';
+import { NotFoundComponent } from './pages/not-found.component';
+import { ExternalUrlDirective } from './directives/external-url.directive';
 
 @NgModule({
   imports: [
@@ -29,9 +32,9 @@ import { OAuthService } from './pages/login/oauth.service';
     }),
     OAuthModule
   ],
-  declarations: [AppComponent],
+  declarations: [AppComponent, NotFoundComponent, ExternalUrlDirective],
   providers: [OAuthService, InAppBrowser, SplashScreen, StatusBar, Facebook, NativeStorage,
-    Config],
+    Config, HTTP],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

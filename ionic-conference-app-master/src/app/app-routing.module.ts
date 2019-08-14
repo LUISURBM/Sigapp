@@ -1,7 +1,13 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { InjectionToken, NgModule } from '@angular/core';
+import { RouterModule, Routes, ActivatedRouteSnapshot } from '@angular/router';
 import { CheckTutorial } from './providers/check-tutorial.service';
+import { Config } from './config';
+import { NotFoundComponent } from './pages/not-found.component';
 
+const externalUrlProvider = new InjectionToken('externalUrlRedirectResolver');
+const deactivateGuard = new InjectionToken('deactivateGuard');
+
+const config: Config = new Config();
 const routes: Routes = [
   {
     path: '',
@@ -33,11 +39,35 @@ const routes: Routes = [
     loadChildren: './pages/tutorial/tutorial.module#TutorialModule',
     canLoad: [CheckTutorial]
   },
+  {
+    path: 'externalRedirect',
+    canActivate: [externalUrlProvider],
+    // We need a component here because we cannot define the route otherwise
+    component: NotFoundComponent
+},
   { path: 'profile', loadChildren: './pages/user/profile/profile.module#ProfilePageModule' }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    {
+        provide: externalUrlProvider,
+        useValue: (route: ActivatedRouteSnapshot) => {
+            
+            const externalUrl = route.paramMap.get('externalUrl');
+            window.open(externalUrl, '_self');
+        },
+    },
+    {
+      provide: deactivateGuard,
+      useValue: () => {
+        console.log('Guard function is called!')
+        
+        return false;
+      }
+    },
+],
 })
 export class AppRoutingModule {}

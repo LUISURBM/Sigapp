@@ -31,7 +31,7 @@ export class GoogleOauthProvider implements IOathProvider {
         });
     }
 
-
+    @log()
     login(): Promise<any> {
         return this.http.get(this.getUrlLogin(), this.getHttpOptions())
             .toPromise().then((data) => {
