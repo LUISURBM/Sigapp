@@ -3,6 +3,7 @@ import { RouterModule, Routes, ActivatedRouteSnapshot } from '@angular/router';
 import { CheckTutorial } from './providers/check-tutorial.service';
 import { Config } from './config';
 import { NotFoundComponent } from './pages/not-found.component';
+import { LoginPage } from './pages/login/login';
 
 const externalUrlProvider = new InjectionToken('externalUrlRedirectResolver');
 const deactivateGuard = new InjectionToken('deactivateGuard');
@@ -45,7 +46,12 @@ const routes: Routes = [
     // We need a component here because we cannot define the route otherwise
     component: NotFoundComponent
 },
-  { path: 'profile', loadChildren: './pages/user/profile/profile.module#ProfilePageModule' }
+  { path: 'profile', loadChildren: './pages/user/profile/profile.module#ProfilePageModule' },
+  {
+    path: 'google3805cbeecee9ab0b.html',
+    redirectTo: '/google3805cbeecee9ab0b.html',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({

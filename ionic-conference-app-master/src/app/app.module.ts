@@ -19,6 +19,7 @@ import { OAuthService } from './pages/login/oauth.service';
 import { HTTP } from '@ionic-native/http/ngx';
 import { NotFoundComponent } from './pages/not-found.component';
 import { ExternalUrlDirective } from './directives/external-url.directive';
+import { LoginPage } from './pages/login/login';
 
 @NgModule({
   imports: [
@@ -32,7 +33,7 @@ import { ExternalUrlDirective } from './directives/external-url.directive';
     }),
     OAuthModule
   ],
-  declarations: [AppComponent, NotFoundComponent, ExternalUrlDirective],
+  declarations: [AppComponent, NotFoundComponent, ExternalUrlDirective, LoginPage],
   providers: [OAuthService, InAppBrowser, SplashScreen, StatusBar, Facebook, NativeStorage,
     Config, HTTP],
   bootstrap: [AppComponent]
